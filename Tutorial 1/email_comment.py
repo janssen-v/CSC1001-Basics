@@ -5,7 +5,7 @@ position=0    # position of the element in a string
 email=""      # the string of an email address
 email_list=[] # the list of all email addresses
 
-#U forgot cross platform support u fool
+# u forgot cross platform support u fool
 import os
 this_folder = os.path.dirname(os.path.abspath(__file__))
 id_list = os.path.join(this_folder, 'idlist.txt')
@@ -13,7 +13,7 @@ id_list = os.path.join(this_folder, 'idlist.txt')
 # to generate a full list of email addresses of students
 while email!="@link.cuhk.edu.cn":
     # open the file for reading in text mode
-    with open(id_list,'rt') as f: #Changed to reference os.path
+    with open(id_list,'rt') as f: # changed to reference os.path for cross-platform support
         # +9 equals to the length of a student id, e.g, 118010242
         studentid=f.read()[position:(position+9)]
         # print('studentid:', studentid)
@@ -29,7 +29,7 @@ while email!="@link.cuhk.edu.cn":
 # to convert email_list to a file named emaillist.txt
 
 # open the file for writing in text mode
-with open('emaillist.txt','wt') as f:
+with open(os.path.join(this_folder, 'emaillist.txt'), 'wt') as f: # changed to reference os.path for cross-platform support
     amount=0                    # the number of students
     email=email_list[amount]    # email equals to the first element of email_list 
     
