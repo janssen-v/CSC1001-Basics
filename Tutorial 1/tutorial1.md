@@ -5,7 +5,6 @@
 2. Do basic sorting exercise
 
 **Things that I've learned**
-
 If you want to use a relative filepath cross-platform, you gotta use the __file__ variable to handle it
 
 **Sample application of the __file__ variable**
