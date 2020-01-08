@@ -1,0 +1,2 @@
+#Simple Python Exercises
+input()
