@@ -1,2 +1,2 @@
 #Simple Python Exercises
-input()
+
