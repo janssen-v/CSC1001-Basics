@@ -40,7 +40,7 @@ final_octal66 = octalfloat_int66 + (octalfloat_dec66 / 100)
 print ("Octal 66.66 in Float is =", final_octal66)
 
 # Hexadecimal
-hex_1 = eval ('0xdeadbeea')
-print ("Hexadecimal 0xdeadbeea into int", hex_1)
+hex_1 = eval ('0xde')
+print ("Hexadecimal 0xde into int =", hex_1)
 
 # Further research on this topic is required...
