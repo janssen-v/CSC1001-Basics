@@ -3,8 +3,20 @@
 # Use all caps to define a variable-constant. E.g. SEC_PER_MIN = 60
 # Always define a variable-constant and use it, do not do direct calculations
 # Input function returns a string always
+
 # Practice -> Write a program to read a user's weight and height and then output his BMI
 
 # BMI Calculator
 BMI = (weight / pow(height,2))
 input()
+
+# Concatenation
+# The operators + and * apply to strings
+# + is for single concatenation, * is for multople concatenation
+# Python will understand automatically
+
+# Practice 2 -> Write program to generate a message to two friends with a stock template
+
+# Eval function
+# eval() takes a string and evaluates it as an expression just as if the programmer had directly entered the expression as code
+# eval() returns the result of that expression, gives flexibility to determine what to execute at runtime
