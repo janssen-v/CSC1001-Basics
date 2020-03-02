@@ -16,7 +16,9 @@ while not done:
         for i in range(len(horz)):
            print(horz[i], end ='''
 ''')
+        #Marks program as complete
         done = True
+    #Repeat on failure
     except ValueError:
         print("You did not input an integer, please try again")
 
