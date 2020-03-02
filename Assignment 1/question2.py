@@ -1,7 +1,7 @@
-#Question 2
+#Question 2 - Display integer input in a vertical list
 
-#Loops statements until integer is input
 done = False
+#Loops statements until integer is input
 while not done:
     try:
         #Asks the user to input an integer
