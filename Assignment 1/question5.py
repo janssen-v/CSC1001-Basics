@@ -1,27 +1,37 @@
 # Question 5
 # Prime number finder
-prime = []
 
+prime = [] # Creates the prime list
 inputok = False
-while not inputok:
+while not inputok: # Foolproof input, repeats until integer is input
     try:
-        n = input("Input an integer N: ")
-        n = int(n)
-        inputok = True
-    except ValueError:
-        print("ERROR. Please enter an integer")
+        n = input("Input an integer N: ") # Requests user input
+        nstring = n # Preserves string format for printing header
+        n = int(n)  # Converts string into integer, while checking input type
+        inputok = True # Confirms input is an integer
+    except ValueError: # Error upon non-integer input, loops back to input
+        print("ERROR. Please enter an integer") 
 
+ # A prime can only be divided by itself and 1
+ # This function checks if a value can be divided by anything other than itself and 1
+ # When it finds a number that can divide without remainder, it restarts the loop
+ # When it finds no other divisors, it appends the number to the list of primes
 for val in range(0, n + 1): 
    if val > 1: 
        for n in range(2, val): 
-           if (val % n) == 0: 
+           if (val % n) == 0:
                break
        else:
-           valist = [val]
-           prime.append(valist)
+           prime.append(val)
 
-print("The prime numbers smaller than 10 include:")
-for i in range(len(prime)):
-    for j in range(len(prime[i])):
-        print(prime[i][j], end='  ')
-        print()
+# This print function references nstring as n has been converted into an int
+# which sometimes gives inaccurate results when printing.
+print("The prime numbers smaller than", nstring, "include: ")
+
+# Prints 8 primes per line
+start=0
+while (start<len(prime)):
+    end = start + 8 # Defines the end of the range as a distance of 8 items from [start]
+    output = prime[start:end] # Defines output as a range of primes from [start] to [end]
+    print(*output, ' ') # The star removes the brackets from the list
+    start = end # Moves the start of the next output range to the end of the previous
