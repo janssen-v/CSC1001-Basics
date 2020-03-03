@@ -1,6 +1,6 @@
 # Question 5
 # Prime number finder
-p = []
+prime = []
 
 inputok = False
 while not inputok:
@@ -17,7 +17,11 @@ for val in range(0, n + 1):
            if (val % n) == 0: 
                break
        else:
-           p.append(val)
+           valist = [val]
+           prime.append(valist)
 
 print("The prime numbers smaller than 10 include:")
-print(*p)
+for i in range(len(prime)):
+    for j in range(len(prime[i])):
+        print(prime[i][j], end='  ')
+        print()
