@@ -1,5 +1,5 @@
 # Question 5
-# Find all primes smaller than input N99
+# Find all primes smaller than input N
 
 prime = [] # Creates the prime list
 inputok = False
