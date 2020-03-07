@@ -42,18 +42,20 @@ while not nInputOk:
         print ("ERROR. Plase input a valid integer value.")
 
 integral = 0
-try:
-    trigFunction in ("sin")
+while trigFunction in ("sin"):
     print("sin")
     for i in range (1, n):
-        integral += ((b-a)/n) * math.sin(a + ((b-a)/n) * (i-0.5))  
-except trigFunction in ("cos"):
+        integral += ((b-a)/n) * math.sin((a + ((b-a)/n) * (i-0.5)))  
+    break
+while trigFunction in ("cos"):
     print("cos")
     for i in range (1, n):
-        integral += ((b-a)/n) * math.cos(a + ((b-a)/n) * (i-0.5))
-except trigFunction in ("tan"):
+        integral += ((b-a)/n) * math.cos((a + ((b-a)/n) * (i-0.5)))
+    break
+while trigFunction in ("tan"):
     print("tan")
     for i in range (1, n):
         integral += ((b-a)/n) * math.tan(a + ((b-a)/n) * (i-0.5))
+    break
 
 print ("The integration of", trigFunction,"(x)", "from", a, "to", b, "is", integral)
