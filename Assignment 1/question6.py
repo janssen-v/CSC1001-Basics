@@ -43,18 +43,15 @@ while not nInputOk:
 
 integral = 0
 while trigFunction in ("sin"):
-    print("sin")
-    for i in range (1, n):
-        integral += ((b-a)/n) * math.sin((a + ((b-a)/n) * (i-0.5)))  
+    for i in range (1, n+1):
+        integral += ((b-a)/n) * math.sin((a + ((b-a)/n) * (i-0.5)))
     break
 while trigFunction in ("cos"):
-    print("cos")
-    for i in range (1, n):
+    for i in range (1, n+1):
         integral += ((b-a)/n) * math.cos((a + ((b-a)/n) * (i-0.5)))
     break
 while trigFunction in ("tan"):
-    print("tan")
-    for i in range (1, n):
+    for i in range (1, n+1):
         integral += ((b-a)/n) * math.tan(a + ((b-a)/n) * (i-0.5))
     break
 
