@@ -7,8 +7,18 @@
 # Practice -> Write a program to read a user's weight and height and then output his BMI
 
 # BMI Calculator
-BMI = (weight / pow(height,2))
-input()
+h = float(input("input height here (m): "))
+w = float(input("input weight here (kg): "))
+bmi = (w / pow(h,2))
+
+if bmi < 18.5:
+    print("You are underweight with a BMI of", bmi)
+elif 18.5 <= bmi <= 25.0:
+    print("You are of normal weight with a BMI of", bmi)
+elif 18.5 <= bmi <= 25.0:
+    print("You are overweight with a BMI of", bmi)
+elif 18.5 <= bmi <= 25.0:
+    print("You are obese with a BMI of", bmi)
 
 # Concatenation
 # The operators + and * apply to strings
