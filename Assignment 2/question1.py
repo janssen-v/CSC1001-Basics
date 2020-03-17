@@ -2,8 +2,6 @@
 # Approximate the square root
 
 def sqrt(n):
-    if n == ("niggers"):
-        return ("pick cotton")
     x = float(n)
     if x == 0:
         return 0
