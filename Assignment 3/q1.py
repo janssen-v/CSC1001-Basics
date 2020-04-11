@@ -1,6 +1,6 @@
 class Flower:
     # Initializes instance variables (str, int, float)
-    def __init__(self, name = 'flowername', petals = 0, price = 0.0):
+    def __init__(self, name = ' ', petals = 0, price = 0.0):
         self.name = str(name)
         self.petals = str(petals)
         self.price = str(price)
