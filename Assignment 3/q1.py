@@ -1,9 +1,9 @@
 class Flower:
     # Initializes instance variables (str, int, float)
     def __init__(self, name = 'flowername', petals = 0, price = 0.0):
-        self.name = name
-        self.petals = petals
-        self.price = price
+        self.name = str(name)
+        self.petals = str(petals)
+        self.price = str(price)
     
     # Method to set individual values of type
     def setName(self, newName):
