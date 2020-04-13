@@ -88,10 +88,34 @@ class Ecosystem:
             print (''.join(river))
 
 if __name__ == "__main__":
-    riverLength = int(input('River length: '))
-    bearAmount = int(input('Amount of Bears: '))
-    fishAmount = int(input('Amount of Fish: '))
-    nSimulations = int(input('Number of simulations: '))
+    while True:
+        try:
+            print('Ecosystem Simulator RC3 by Vincentius Janssen')
+            print()
+            print('1. Please enter the simulation parameters in positive integers')
+            print('2. If an input is detected as invalid, the program will restart')
+            print('3. Please note that your river must be large enough to handle the initial amount of animals')
+            print()
+            print('Simulation parameters')
+            print()
+            riverLength = int(input('River length (At least 1 units long): '))
+            assert(riverLength > 0), 'Your river must at least be 1 units long'
+            bearAmount = int(input('Amount of Bears (Must be zero or more): '))
+            assert(bearAmount >= 0), 'You cannot have a negative amount of bears'
+            fishAmount = int(input('Amount of Fish (Must be zero or more): '))
+            assert(fishAmount >= 0), 'You cannot have a negative amount of fish'
+            assert(fishAmount + bearAmount <= riverLength), 'You have too many animals in your ecosystem'
+            nSimulations = int(input('Number of simulations (At least one simulation): '))
+            assert(nSimulations > 0), 'You must simulate the ecosystem at least once'
+            if nSimulations > 0:
+                break
+        except AssertionError:
+            continue
+        except ValueError:
+            print('Please input a valid positive integer')
+        
     ecosystem = Ecosystem(riverLength, bearAmount, fishAmount, nSimulations)
+    print()
+    print('Simulation output for', nSimulations, 'simulations.')
     ecosystem.simulation(nSimulations)
     
