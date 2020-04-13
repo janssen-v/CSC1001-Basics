@@ -7,11 +7,10 @@ class Ecosystem:
         self.bear = 'B'
         self.fish = 'F'
         self.none = 'N'
-        self.river = []
     
     # Generator Methods
     def randomizer(self):
-        roll = random()
+        roll = random.random()
         if roll <= 0.5:
             return True
         else:
@@ -20,8 +19,8 @@ class Ecosystem:
     def allocator(self):
         bearCount = self.bearAmount
         fishCount = self.fishAmount
-        river     = self.river
         noneCount = self.riverLength - (bearCount + fishCount)
+        river     = []
         while True:
             if bearCount > 0:
                 river.append(self.bear)
@@ -31,55 +30,62 @@ class Ecosystem:
                 fishCount -= 1
             elif noneCount > 0:
                 river.append(self.none)
+                noneCount -= 1
             else:
-                self.river = random.shuffle(river)
+                return river
                 break
 
-    def generate(self, create): # generates the create object at random empty position
-        indices = [i for i, x in enumerate(self.river) if x == self.none]
-        position = random.choice(indices)
-        self.river[position] = create
+    def generate(self, create, river): # generates the create object at random empty position
+        emptyIndices = [i for i, x in enumerate(river) if x == self.none]
+        if emptyIndices == []:
+            print('The Ecosystem is overpopulated, shutting down simulation.')
+            exit()
+        position = random.choice(emptyIndices)
+        river[position] = create
 
     # Behaviour and Collision Models
-    def bearObj(self, meet, origin, destination):
+    def bearObj(self, meet, origin, destination, river):
         if meet == self.bear:
-            self.generate(self.bear)
-            self.bearAmount += 1 # increases record of bear by 1
+            self.generate(self.bear, river)
         elif meet == self.fish:
-            self.fishAmount -= 1 # subtracts record of fish by 1
-            self.river[destination] = self.bear
-            self.river[origin] = self.none
+            river[destination] = self.bear
+            river[origin] = self.none
+        elif meet == self.none:
+            river[destination] = self.bear
+            river[origin] = self.none
     
-    def fishObj(self, meet, origin, destination):
+    def fishObj(self, meet, origin, destination, river):
         if meet == self.bear:
-            self.river[origin] = self.none
-            self.fishAmount -= 1 # subtracts record of fish by 1
+            river[origin] = self.none
         elif meet == self.fish:
-            self.generate(self.fish)
-            self.fishAmount += 1 # increases record of fish by 1
+            self.generate(self.fish, river)
+        elif meet == self.none:
+            river[destination] = self.fish
+            river[origin] = self.none
 
-    def collision(self, origin, vector):
+    def collision(self, origin, vector, river):
         destination = origin + vector
-        originObj = self.river[origin]
-        destinationObj = self.river[destination]
-        if originObj == self.bear:
-            self.bearObj(destinationObj, origin, destination)
-        elif originObj == self.fish:
-            self.fishObj(destinationObj, origin, destination)
+        originObj = river[origin]
+        destinationObj = river[destination]
+        if destination >= 0 and destination <= (len(river)-1): # So that collision cannot go out of bounds
+            if originObj == self.bear:
+                self.bearObj(destinationObj, origin, destination, river)
+            elif originObj == self.fish:
+                self.fishObj(destinationObj, origin, destination, river)
 
     def simulation(self, nSimulations):
-        self.allocator()
+        river = self.allocator()
         riverPart = range(self.riverLength)
         for i in range(nSimulations):
-            for i in riverPart:
-                if self.bear in self.river[i] or self.fish in self.river[i]: # to check if location[i] in list is F B or N
+            for j in riverPart:
+                if self.bear in river[j] or self.fish in river[j]: # to check if location[i] in list is F B or N
                     if self.randomizer():    # moves the object
                         if self.randomizer():
                             direction = -1 # move left
                         else:
                             direction = 1 # move right
-                    collision(i, direction)
-                    print (''.join(self.river))
+                        self.collision(i, direction, river)
+            print (''.join(river))
 
 if __name__ == "__main__":
     riverLength = int(input('River length: '))
