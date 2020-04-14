@@ -3,16 +3,16 @@
 
 class Differential:
     def __init__(self, polynomial=''):
-        self.polynomial = polynomial
+        self.__polynomial = polynomial
 
-    def splitPolynomial(self):
-        diff = self.polynomial
+    def __splitPolynomial(self):
+        diff = self.__polynomial
         diff = diff.replace('-', '+') # Changes all operators to positive to make polynomial easier to split
         diff = diff.split('+')        # Splits polynomial at the operator
         return diff
 
-    def getOperators(self):
-        polynomial = self.polynomial
+    def __getOperators(self):
+        polynomial = self.__polynomial
         polySlice = []
         operatorList = []
         polySlice[:0] = polynomial # Slicing the polynomial into individual characters
@@ -21,7 +21,7 @@ class Differential:
                 operatorList.append(polySlice[i])
         return operatorList
 
-    def separateValues(self, diff, var='x'):
+    def __separateValues(self, diff):
         separated = []
         for i in range(len(diff)):
             candidate = diff[i]
@@ -35,7 +35,7 @@ class Differential:
                 separated.append ((coefficient, variableExponent))
         return (separated)
     
-    def differentiate(self, equation):
+    def __differentiate(self, equation):
         coefficient = int(equation[0])
         variableExponent = equation[1]
         if '^' in variableExponent:
@@ -58,13 +58,14 @@ class Differential:
             differential = ''.join([newCoefficient,'*',variable,'^',newExponent]) # e.g. -> 3*x^2
         return (differential)
 
+    # Main differentiating function
     def getDifferential(self):
         differential = []
-        operators = self.getOperators()
-        splitPolynomial = self.splitPolynomial()
-        differentiables = (self.separateValues(splitPolynomial))
+        operators = self.__getOperators()
+        splitPolynomial = self.__splitPolynomial()
+        differentiables = (self.__separateValues(splitPolynomial))
         for i in range(len(differentiables)):
-            returnedDiff = (self.differentiate((differentiables)[i]))
+            returnedDiff = (self.__differentiate((differentiables)[i]))
             differential.append(returnedDiff)
             try:
                 differential.append(operators[i])
@@ -72,7 +73,19 @@ class Differential:
                 continue
         if differential[len(differential)-1] == "+" or "-":
             del differential[len(differential)-1] # Removes stray operator if it exists
-        print(differential)
+        return ''.join(differential)
 
-equation = Differential('2*x^3+3*x^2+5*x+1')
-equation.getDifferential()
+# SAMPLE USER ACCESSIBLE FUNCTIONS
+# equation = Differential('polynomial')
+# equation.getDifferential()
+
+# Sample program
+if __name__ == "__main__":
+    print('POLYNOMIAL FIRST DERIVATIVE FINDER')
+    print()
+    print('The polynomial must be in a format similar to this -> 2*x^3+3*x^2+5*x+1')
+    print()
+    polynomial = input('Input a polynomial to be derived: ')
+    equation = Differential(polynomial)
+    print ('The first derivative of the polynomial is:', equation.getDifferential())
+
