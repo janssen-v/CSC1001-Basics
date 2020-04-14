@@ -23,30 +23,28 @@ class Differential:
 
     def separateValues(self, diff, var='x'):
         separated = []
-        differentiated = []
         for i in range(len(diff)):
-            if '*' in (diff[i]): # If there is both a coefficient and an exponent -> 6*x^2
+            if '*' in diff[i]:
                 coefficient = diff[i].split('*')[0]
-                if '^' in (diff[i]):
-                    variableExponent = diff[i].split('*')[1]
-                else: # If there is a coefficient but no exponent -> 6*x
-                    variableExponent = ''.join((var,'^1'))
-            elif diff[i] == var: # If there is no coefficient or exponent
+                variableExponent = diff[i].split('*')[1]
+                separated.append ((coefficient, variableExponent))
+            elif diff[i].isalpha is True:
                 coefficient = '1'
-                variableExponent = ''.join((var,'^1'))
-            elif var in (diff[i]): # If there is an exponent but no coefficient
-                coefficient = '1'
-                variableExponent = ''.join(var,diff[i].split(var)[0])
-            separated.append ((coefficient, variableExponent))
+                variableExponent = 'x^1'
+                separated.append ((coefficient, variableExponent))
         return (separated)
     
     def differentiate(self, equation):
         coefficient = int(equation[0])
         variableExponent = equation[1]
-        variable = str(variableExponent.split('^')[0])
-        exponent = int(variableExponent.split('^')[1])
-        newCoefficient = str(exponent * coefficient)
-        newExponent = str(exponent - 1)
+        if '^' in variableExponent:
+            variable = str(variableExponent.split('^')[0])
+            exponent = int(variableExponent.split('^')[1])
+            newCoefficient = str(exponent * coefficient)
+            newExponent = str(exponent - 1)
+        else:
+            newCoefficient = str(coefficient)
+            newExponent = '0'
         if int(newExponent) > 1 and int(newCoefficient) == 1: # e.g -> x^2
             differential = ''.join([variable,'^',newExponent])
         elif int(newExponent) == 1 and int(newCoefficient) == 1: # e.g. -> x
