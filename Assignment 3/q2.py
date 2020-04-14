@@ -17,7 +17,7 @@ class Differential:
         operatorList = []
         polySlice[:0] = polynomial # Slicing the polynomial into individual characters
         for i in range(len(polySlice)):
-            if polySlice[i] == '+' or polySlice == '-':
+            if polySlice[i] == '+' or polySlice[i] == '-':
                 operatorList.append(polySlice[i])
         return operatorList
 
@@ -71,7 +71,7 @@ class Differential:
                 differential.append(operators[i])
             except:
                 continue
-        if differential[len(differential)-1] == "+" or "-":
+        if differential[len(differential)-1] == "+" or differential[len(differential)-1] == "-":
             del differential[len(differential)-1] # Removes stray operator if it exists
         return ''.join(differential)
 
