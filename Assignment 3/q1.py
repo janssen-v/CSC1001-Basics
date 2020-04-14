@@ -43,38 +43,38 @@ class Flower:
 
 
 # Sample outputs from using the Flower() class
+if __name__ == "__main__":
+    # Example class type "flower1"
+    flower1 = Flower()
+    # Setting values of a type with defined methods
+    flower1.setName("Rose")
+    flower1.setPetals(40)
+    flower1.setPrice(25.5)
+    # Printing type values individually
+    print()
+    print('Direct printing of individual type values:')
+    print()
+    print(flower1.name)
+    print(flower1.petals)
+    print(flower1.price)
+    # Printing all type values combined with method retAttributes
+    print()
+    print ('Combined printing of returned type values with retAttributes method:')
+    print()
+    print(flower1.retAttributes())
 
-# Example class type "flower1"
-flower1 = Flower()
-# Setting values of a type with defined methods
-flower1.setName("Rose")
-flower1.setPetals(40)
-flower1.setPrice(25.5)
-# Printing type values individually
-print()
-print('Direct printing of individual type values:')
-print()
-print(flower1.name)
-print(flower1.petals)
-print(flower1.price)
-# Printing all type values combined with method retAttributes
-print()
-print ('Combined printing of returned type values with retAttributes method:')
-print()
-print(flower1.retAttributes())
-
-# Example class type "flower2"
-flower2 = Flower("Crysanthemum", 5, 34.2)
-# Printing type values individually with retValue method
-print()
-print('Direct printing of individual type values with the retValue Method:')
-print()
-flower2.retName()
-flower2.retPrice()
-flower2.retPetals()
-# Printing all type values combined with method attributes
-print()
-print('Combined printing of type values with attributes method:')
-print()
-flower2.attributes()
+    # Example class type "flower2"
+    flower2 = Flower("Crysanthemum", 5, 34.2)
+    # Printing type values individually with retValue method
+    print()
+    print('Direct printing of individual type values with the retValue Method:')
+    print()
+    flower2.retName()
+    flower2.retPrice()
+    flower2.retPetals()
+    # Printing all type values combined with method attributes
+    print()
+    print('Combined printing of type values with attributes method:')
+    print()
+    flower2.attributes()
 
