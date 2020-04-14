@@ -24,13 +24,14 @@ class Differential:
     def separateValues(self, diff, var='x'):
         separated = []
         for i in range(len(diff)):
-            if '*' in diff[i]:
-                coefficient = diff[i].split('*')[0]
-                variableExponent = diff[i].split('*')[1]
+            candidate = diff[i]
+            if '*' in candidate:
+                coefficient = candidate.split('*')[0]
+                variableExponent = candidate.split('*')[1]
                 separated.append ((coefficient, variableExponent))
-            elif diff[i].isalpha is True:
+            elif candidate.isalpha():
                 coefficient = '1'
-                variableExponent = 'x^1'
+                variableExponent = ''.join((candidate,'^1'))
                 separated.append ((coefficient, variableExponent))
         return (separated)
     
