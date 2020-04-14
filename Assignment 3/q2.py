@@ -4,23 +4,49 @@
 class Differential:
     def __init__(self, polynomial=''):
         self.polynomial = polynomial
-        
-    def differentiables(self):
+
+    def splitPolynomial(self):
         diff = self.polynomial.split('+')
         return diff
 
-    def differentiate(self):
-        differentiables = self.differentiables()
-        for i in range(len(differentiables)):
-            if '*' in (differentiables[i]):
-                if '^' in (differentiables[i]):
-                    base     = differentiables[i].split('^')[0]
-                    exponent = differentiables[i].split('^')[1]
-                    print(base)
-                    print(exponent)
+    def separateValues(self, diff):
+        separated = []
+        differentiated = []
+        for i in range(len(diff)):
+            if '*' in (diff[i]):
+                if '^' in (diff[i]):
+                    base     = diff[i].split('^')[0]
+                    exponent = diff[i].split('^')[1]
+                    separated.append ((base, exponent))
                 else:
-                    return differentiables[i].split('*')[1]
+                    differentiated.append ((diff[i].split('*')[0]))
+        return (separated, differentiated)
+    
+    def differentiate(self, equation):
+        print(equation)
+        base = equation[0]
+        conjugate = int(base.split('*')[0])
+        variable = (base.split('*')[1])
+        exponent = int(equation[1])
+        newConjugate = str(conjugate * exponent)
+        newExponent = str(exponent - 1)
+        if int(newExponent) > 1:
+            differential = ''.join([newConjugate,'*',variable,'^',newExponent])
+        else:
+            differential = ''.join([newConjugate,'*',variable])
+        print (differential)
+        return (differential)
+
+    def getDifferential(self):
+        differential = []
+        splitPolynomial = self.splitPolynomial()
+        differentiables = (self.separateValues(splitPolynomial))[0]
+        for i in range(len(differentiables)):
+            returnedDiff = (self.differentiate((differentiables)[i]))
+            differential.append(returnedDiff)
+        differential.append((self.separateValues(splitPolynomial))[1])
+        return ''.join(differential)
+
 
 equation = Differential('2*x^3+3*x^2+5*x+1')
-print(equation.differentiables())
-print(equation.differentiate())
+equation.getDifferential()
