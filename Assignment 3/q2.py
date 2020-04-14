@@ -70,6 +70,8 @@ class Differential:
                 differential.append(operators[i])
             except:
                 continue
+        if differential[len(differential)-1] == "+" or "-":
+            del differential[len(differential)-1] # Removes stray operator if it exists
         print(differential)
 
 equation = Differential('2*x^3+3*x^2+5*x+1')
