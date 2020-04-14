@@ -44,6 +44,16 @@ class Ecosystem:
         river[position] = create
 
     # Behaviour and Collision Models
+    def collision(self, origin, vector, river): # Collision director
+        destination = origin + vector
+        originObj = river[origin]
+        destinationObj = river[destination]
+        if destination >= 0 and destination <= (len(river)-1): # So that collision cannot go out of bounds
+            if originObj == self.bear:
+                self.bearObj(destinationObj, origin, destination, river)
+            elif originObj == self.fish:
+                self.fishObj(destinationObj, origin, destination, river)
+    
     def bearObj(self, meet, origin, destination, river):
         if meet == self.bear:
             self.generate(self.bear, river)
@@ -63,16 +73,7 @@ class Ecosystem:
             river[destination] = self.fish
             river[origin] = self.none
 
-    def collision(self, origin, vector, river):
-        destination = origin + vector
-        originObj = river[origin]
-        destinationObj = river[destination]
-        if destination >= 0 and destination <= (len(river)-1): # So that collision cannot go out of bounds
-            if originObj == self.bear:
-                self.bearObj(destinationObj, origin, destination, river)
-            elif originObj == self.fish:
-                self.fishObj(destinationObj, origin, destination, river)
-
+    # Main simulation logic control
     def simulation(self, nSimulations):
         river = self.allocator()
         riverPart = range(self.riverLength)
@@ -91,12 +92,13 @@ if __name__ == "__main__":
     while True:
         try:
             print()
-            print('ECOSYSTEM SIMULATOR V1 by Vincentius Janssen')
+            print('ECOSYSTEM SIMULATOR by Vincentius Janssen')
             print()
             print('INSTRUCTIONS')
             print('1. Please enter the simulation parameters in positive integers.')
             print('2. If an input is detected as invalid, the program will restart.')
-            print('3. Please note that your river must be large enough to handle the initial amount of animals.')
+            print('3. The simulation will end when N number of simulations has elapsed, or if the river becomes overpopulated.')
+            print('4. Please note that your river must be large enough to handle the initial amount of animals.')
             print()
             print('SIMULATION PARAMETERS')
             riverLength = int(input('River length (At least 1 units long): '))
