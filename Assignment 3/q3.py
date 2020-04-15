@@ -1,92 +1,95 @@
 import random
 class Ecosystem:
-    def __init__(self, riverLength = 0, bearAmount = 0 , fishAmount = 0, nSimulations = 0):
-        self.riverLength = riverLength
-        self.bearAmount = bearAmount
-        self.fishAmount = fishAmount
-        self.bear = 'B'
-        self.fish = 'F'
-        self.none = 'N'
+    def __init__(self, riverLength = 0, bearAmount = 0 , fishAmount = 0):
+        self.__riverLength = riverLength
+        self.__bearAmount = bearAmount
+        self.__fishAmount = fishAmount
+        self.__bear = 'B'
+        self.__fish = 'F'
+        self.__none = 'N'
     
     # Generator Methods
-    def randomizer(self):
+    def __randomizer(self):
         roll = random.random()
         if roll <= 0.5:
             return True
         else:
             return False
 
-    def allocator(self):
-        bearCount = self.bearAmount
-        fishCount = self.fishAmount
-        noneCount = self.riverLength - (bearCount + fishCount)
+    def __allocator(self):
+        bearCount = self.__bearAmount
+        fishCount = self.__fishAmount
+        noneCount = self.__riverLength - (bearCount + fishCount)
         river     = []
         while True:
             if bearCount > 0:
-                river.append(self.bear)
+                river.append(self.__bear)
                 bearCount -= 1
             elif fishCount > 0:
-                river.append(self.fish)
+                river.append(self.__fish)
                 fishCount -= 1
             elif noneCount > 0:
-                river.append(self.none)
+                river.append(self.__none)
                 noneCount -= 1
             else:
                 return river
                 break
 
-    def generate(self, create, river): # generates the create object at random empty position
-        emptyIndices = [i for i, x in enumerate(river) if x == self.none]
+    def __generate(self, create, river): # generates the create object at random empty position
+        emptyIndices = [i for i, x in enumerate(river) if x == self.__none]
         if emptyIndices == []:
-            print('THE ECOSYSTEM IS OVERPOPULATED. SHUTTING DOWN SIMULATION. HAVE A NICE DAY.')
-            exit()
-        position = random.choice(emptyIndices)
-        river[position] = create
+            print('THE ECOSYSTEM IS OVERPOPULATED. NO MORE ANIMALS CAN SPAWN.')
+        else:
+            position = random.choice(emptyIndices)
+            river[position] = create
 
     # Behaviour and Collision Models
-    def collision(self, origin, vector, river): # Collision director
+    def __collision(self, origin, vector, river): # Collision director
         destination = origin + vector
         originObj = river[origin]
         destinationObj = river[destination]
         if destination >= 0 and destination <= (len(river)-1): # So that collision cannot go out of bounds
-            if originObj == self.bear:
-                self.bearObj(destinationObj, origin, destination, river)
-            elif originObj == self.fish:
-                self.fishObj(destinationObj, origin, destination, river)
+            if originObj == self.__bear:
+                self.__bearObj(destinationObj, origin, destination, river)
+            elif originObj == self.__fish:
+                self.__fishObj(destinationObj, origin, destination, river)
     
-    def bearObj(self, meet, origin, destination, river):
-        if meet == self.bear:
-            self.generate(self.bear, river)
-        elif meet == self.fish:
-            river[destination] = self.bear
-            river[origin] = self.none
-        elif meet == self.none:
-            river[destination] = self.bear
-            river[origin] = self.none
+    def __bearObj(self, meet, origin, destination, river):
+        if meet == self.__bear:
+            self.__generate(self.__bear, river)
+        elif meet == self.__fish:
+            river[destination] = self.__bear
+            river[origin] = self.__none
+        elif meet == self.__none:
+            river[destination] = self.__bear
+            river[origin] = self.__none
     
-    def fishObj(self, meet, origin, destination, river):
-        if meet == self.bear:
-            river[origin] = self.none
-        elif meet == self.fish:
-            self.generate(self.fish, river)
-        elif meet == self.none:
-            river[destination] = self.fish
-            river[origin] = self.none
+    def __fishObj(self, meet, origin, destination, river):
+        if meet == self.__bear:
+            river[origin] = self.__none
+        elif meet == self.__fish:
+            self.__generate(self.__fish, river)
+        elif meet == self.__none:
+            river[destination] = self.__fish
+            river[origin] = self.__none
 
     # Main simulation logic control
     def simulation(self, nSimulations):
-        river = self.allocator()
-        riverPart = range(self.riverLength)
+        river = self.__allocator()
+        simulations = []
+        simulations.append(''.join(river)) # -> append the initial state to list of simulations
+        riverPart = range(self.__riverLength)
         for i in range(nSimulations):
             for j in riverPart:
-                if self.bear in river[j] or self.fish in river[j]: # to check if location[i] in list is F B or N
-                    if self.randomizer():    # moves the object
-                        if self.randomizer():
+                if self.__bear in river[j] or self.__fish in river[j]: # to check if location[i] in list is F B or N
+                    if self.__randomizer():    # moves the object
+                        if self.__randomizer():
                             direction = -1 # move left
                         else:
                             direction = 1 # move right
-                        self.collision(i, direction, river)
-            print (''.join(river))
+                        self.__collision(i, direction, river)
+            simulations.append(''.join(river))
+        return simulations # returns the simulations with the initial state as a list
 
 if __name__ == "__main__":
     while True:
@@ -118,8 +121,13 @@ if __name__ == "__main__":
         except ValueError:
             print('PLEASE INPUT A VALID POSITIVE INTEGER.')
         
-    ecosystem = Ecosystem(riverLength, bearAmount, fishAmount, nSimulations)
+    ecosystem = Ecosystem(riverLength, bearAmount, fishAmount)
+    simulations = ecosystem.simulation(nSimulations)
     print()
+    print('INITAL STATE BEFORE SIMULATION')
+    print(simulations[0]) # Prints inital state before simulation begins
+    del simulations[0] # Removes initial state from list of simulations
     print('SIMULATION OUTPUT FOR', nSimulations, 'SIMULATIONS.')
-    ecosystem.simulation(nSimulations)
+    for simulation in range(len(simulations)): # Prints simulations
+        print(simulations[simulation]) 
     
