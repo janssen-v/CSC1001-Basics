@@ -5,13 +5,13 @@ def move (origin, dest): # Move from origin to destination
     dest.insert(0, origin.pop(0))
 
 def legalMove(tower1, tower2, name1, name2):
-    if len(tower2) == 0 and len(tower1) != 0: # if tower 2 is empty and tower 1 is not
+    if len(tower2) == 0 and len(tower1) != 0:   # Tower 2 is empty and tower 1 is not
         move(tower1, tower2)
         print(name1, '-->', name2)
-    elif len(tower1) == 0 and len(tower2) != 0: # if tower 1 is empty and tower 2 is not
+    elif len(tower1) == 0 and len(tower2) != 0: # Tower 1 is empty and tower 2 is not
         move(tower2, tower1)
         print(name2, '-->', name1)
-    elif len(tower1) >=0 and len(tower2) >= 0: # if both towers have a disc inside
+    elif len(tower1) >=0 and len(tower2) >= 0:  # Both towers have a disc inside
         if tower1[0] > tower2[0]:
             move(tower2, tower1)
             print(name2, '-->', name1)
@@ -25,19 +25,19 @@ def HanoiTower(n):
     towC = []
     towA.extend(range(1, n+1))
     
-    if n%2 == 0: # if even
+    if n%2 == 0: # EVEN
         while True:
             # Move AB
-            try: legalMove(towA, towB, 'A', 'B')
-            except: break
-            # Move AC
-            try: legalMove(towA, towC, 'A', 'C')
+            try: legalMove(towA, towB, 'A', 'B')    # instead of adding try except for each move, a check function
+            except: break                           # could have been used nested inside legalMove(), but that would
+            # Move AC                               # require passing more parameters, which I wanted to avoid doing.
+            try: legalMove(towA, towC, 'A', 'C')    # Plus, this came to mind the earliest.
             except: break
             # Move BC
             try: legalMove(towB, towC, 'B', 'C')
             except: break
                 
-    elif n%2 != 0: # if odd         
+    elif n%2 != 0: # ODD      
         while True:    
             # Move AC
             try: legalMove(towA, towC, 'A', 'C')
