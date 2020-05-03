@@ -6,9 +6,9 @@ def part(arr, start, end): # Quick sort partition
     for i in range(start+1, end+1):
         if arr[i] <= arr[start]:
             pivot += 1
-            arr[i], arr[pivot] = arr[pivot], arr[i] # At first, I actually thought of storing the values of arr[pivot] and arr[i] inside temporary variables
-    arr[pivot], arr[start] = arr[start], arr[pivot] # But on second thought, that would create new memory values, which is counter to the point of an in place sort
-    return pivot                                    # I found out that the values can be swapped in this fashion only recently after seeing an example on the internet
+            arr[i], arr[pivot] = arr[pivot], arr[i]     # At first, I actually thought of storing the values of arr[pivot] and arr[i] inside temporary variables
+    arr[pivot], arr[start] = arr[start], arr[pivot]     # But on second thought, that would create new memory values, which is counter to the point of an in place sort
+    return pivot                                        # I found out that the values can be swapped in this fashion only recently after seeing an example on the internet
 
 def qSort(arr, start, end): # Quick sort function
     if start >= end:
@@ -51,10 +51,6 @@ class linkedList:
         newNode = Node(data)
         newNode.setNext(self.head)
         self.head = newNode
-
-    def addNode(self, node):    # Adds from inside of list
-        node.setNext(self.head)
-        self.head = node
     
     def count(self, head):  # Count function
         if head:
