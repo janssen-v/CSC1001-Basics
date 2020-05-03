@@ -7,6 +7,18 @@ class Node(object):
 
     def getNext(self):
         return self.nextNode
+    
+    def nextExists(self):
+        if self.getNext() != None:
+            return True
+        elif self.getNext() == None:
+            return False
+    
+    def getData(self):
+        return self.data
+
+    def setNext(self, newNext):
+        self.nextNode = newNext
 
 class linkedList:
     def __init__(self):
@@ -17,7 +29,8 @@ class linkedList:
         newNode.nextNode = self.head
         self.head = newNode
 
-    # Better way to implement recursive count
+    # Another way to implement recursive count
+    # is to place it inside linkedList
     # e.g. list1.reCount vs reCount(list1) 
 
     # def count(self, head): # Count function
@@ -31,7 +44,7 @@ def count(head): # Count function
     if head:
         return 1 + count(head.getNext())
     else: return 0
-def reCount(node): # Recursive count
+def reCount(node): # Count recursion 
     # check if node is linkedlist for robustness
     return count(node.head)
 
